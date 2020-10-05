@@ -1,0 +1,55 @@
+#key:value pairs
+microservice:
+#a "-" will createa a list, with each - being an item
+  - app:  user-authentication #quotes not necessary for strings, they are for escape characters
+    port: 9000
+    version: 1.7
+    deployed: false #yes/no on/off true/false
+  - app: shopping-cart
+    port: 9002
+    version: 1.9
+
+microservices:
+  - user-auth
+  - shopping-cart
+    version: # or [5.6, 5.61, 5.67]
+      - 5.6
+      - 5.61
+      - 5.67
+spec:
+  - containers:
+    - name: nginx-container
+      image: nginx
+      ports:
+        - containerPort: 80
+        volumeMounts: 
+          - name: nginx-vol
+          mountPath: /usr/nginx/html
+    - name: sidecar-container
+      image: some-image
+      command: ["/bin/sh"]
+      args: ["-c", "echo Hello from the other container; sleep 300"]
+
+multilineString: |
+  this is a multiline string
+  and this is the next line
+  next line
+
+singlelineString: >
+  this is a multiline string
+  and this is the next line
+  next line
+
+#env variables, access using "$""
+command:
+  - /bin/sh
+  - -ec
+  - >- 
+    mysql -h 127.0.0.1 -u root -p$MYSQL_ROOT_PASSWORD -e 'SELECT 1'
+
+#placeholders "{{ }}"
+name: {{ .Values.service.name }}
+
+#inserting other yaml files
+---
+#anything after will be read as another yaml file
