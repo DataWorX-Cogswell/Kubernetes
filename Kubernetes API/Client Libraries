@@ -1,0 +1,6 @@
+To write applications utilizing the Kubernetes REST API, you do not need to implement the API calls and request/response types yourself. You can use a client library for the programming language you are using.
+Client libraries can also handle common tasks such as authentication. Most client libraries can discover and use the Kubermetes Service Account to authenticate if the API client is running insde the Kubernetes 
+cluser, or can understand the kubeconfig file format to read the credentials and the API Server address.
+
+Officially supported Kubernetes client libraries:
+Go, Python, Java, dotnet, JavaScript, Haskell
