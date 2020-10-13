@@ -1,0 +1,7 @@
+ Kubernetes API is a "resource-based (RESTFUL) programmmatic interface provided via HTTP".
+ - Supports retrieving, creating, updating, and deleting primary resources via the standard HTTP verbs (POST, PUT, PATCH, DELETE,GET), includes additional
+ subresources for many objects that allow fine grained authorization (such as binding a pod to a node), and can accept and server those resources in different 
+ representations for convenience or efficiency. It also supports efficient change notifications on resources via "watches" and consistent lists to allow other
+ components to eddectively cache and sychronize the state of resources. 
+ 
+ 
