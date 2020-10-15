@@ -1,0 +1,18 @@
+/* Explanation of how to configure and use kernal parameters withtin a Kubernetes Cluster using a Sysctl interface */
+/*
+Kernal Parameters: 
+Kernel boot parameters are text strings which are interpreted by the system to change specific
+behaviors and enable or disable certain features.
+
+Kubernetes Cluster: 
+"A set of node machines for running containerized applications. If you're running Kubernetes, 
+you're running a cluster. At a minimum, a cluster contains a control plane and one or more compute machines, or nodes."
+
+Sysctl Interface: 
+A software utility of some Unix-like operating systems that reads and modifies the attributes of the 
+system kernel such as its version number, maximum limits, and security settings. It is available both as a system call 
+for compiled programs, and an administrator command for interactive use and scripting. Linux additionally exposes sysctl
+as a virtual file system.
+*/
+
+
