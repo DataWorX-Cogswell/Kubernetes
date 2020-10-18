@@ -1,4 +1,4 @@
-/* Explanation of how to configure and use kernal parameters withtin a Kubernetes Cluster using a Sysctl interface */
+/* Explanation of how to configure and use kernal parameters within a Kubernetes Cluster using a Sysctl interface */
 /*
 Kernal Parameters: 
 Kernel boot parameters are text strings which are interpreted by the system to change specific
