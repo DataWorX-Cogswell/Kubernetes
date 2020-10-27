@@ -1,0 +1,32 @@
+Kubernetes have advanced networking capabilities that allow pods and services to communicate inside the clusters network and externally. 
+Kubernetes services are an abstract that defines a policy and approach on how to access a set of pods. The set of pods accessed via a service is based on a "Label Selector".
+
+Cluster IP:
+*The default approach when creating a Kubernetes service.
+The service is allocated an internal IP that other components can use to access pods.
+By having a single IP address it enables the service to be load balanced across multiple pods.
+/* Load balanced: Distributing a set of tasks over a set of resources */
+
+//Services are deployed via
+"kubectl apply -f clusterip.yaml"
+
+//Definition of cluserIp can be viewed with
+"cat clusterip.yaml"
+ 
+ ** This will deploy a web app with two replicas to showcase load balancing along with a service. 
+ The pods can be viewed at:
+ "kubectl get pods" 
+ 
+ //Deploy a service 
+ "kubectl get svc"
+ 
+ *More details on the service configuration and active endpoints(pods) can be viewed via:
+ "kubectl describe svc/webappl -clusterip -svc"
+ 
+ //After deploying, the service can be accessed via the clusterIP allocated:
+ "export CLUSTER_IP=$(kubectl get services/webapp1-clusterip-svc -o  go-template='{{(index. spec.clusterIP)}}')"
+ "echo CLUSTER_IP=$CLUSTER_IP"
+ "curl $CLUSTER_IP"
+ 
+ *Multiple requests will showcase how the service load balances across multiple pods based on the common label selector
+ 
