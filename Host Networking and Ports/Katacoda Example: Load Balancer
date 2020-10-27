@@ -1,0 +1,9 @@
+*When running in the cloud, such as EC2 or Azur, its possible to configure and assign a public IP address issued via the cloud provider. 
+This will be issued via a Load Balancer such as ELB. This allows additional public IP addresses to be allocated to a kubernetes cluster
+without interacting directly with the cloud provider.
+
+//As Katacoda is not a cloud provider, its still possible to dynamically allocate IP addresses to Load Balancer type services. This is 
+done by deploying the cloud provider using:
+"kubectl apply -f cloudprovider.yaml"
+
+//Additional notes needed
