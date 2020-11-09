@@ -1,0 +1,32 @@
+//Current directory (current working directory)
+
+pwd
+
+//See files in current working directory
+
+ls
+
+//Change directories
+
+cd <filename>
+
+//Change to home directory
+
+cd ~
+
+//Change to one directory above your current directory
+
+cd ..
+
+//Change back to the previous directory
+
+cd -
+
+//Print a files contents within the directory
+
+cat <filname>
+
+//Print a (long files) contents within the directory 
+
+//To close less, hit q
+less <filename>
