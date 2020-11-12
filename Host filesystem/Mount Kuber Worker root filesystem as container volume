@@ -1,0 +1,86 @@
+*Describes how to mount and analyse the root filesystem (/) of a chosen kube worker inside a pod
+container. This method shows an alternative way to get a shell on the worker host machine for analysis 
+and maintenance e.g. for freeing up disk space when kubelet is reporting DiskPressure.*
+
+1) Identify and target a Kube Worker using a label
+**First, find a label to address a specific kubernetes worker:
+
+kubectl get nodes --show-labels
+
+//The kubernetes.io/hostname label is unique for each node
+
+kubectl get nodes -l kubernetes.io/hostname=ip-10-1-79-78.cryptocracy.org
+//Name                        Status  Roles Age Version
+ip-10-1-79-78.cryptocracy.org  Ready  node  90d  v1.12.7
+
+2) Create a Support pod:
+//Creae a pod for worker analysis which simply sleeps for an hour while we shell in and interactively explore
+the host FS. Here's the complete Pod manifest (analyse-worker-fs.yml):
+
+apiVersion:v1
+kind: Pod
+metadata:
+name: kube-support
+namespace: kube-system
+spec:
+  containers:
+  - name: busybox
+  image: busybox:1.29.2
+  command: ["/bin/sh"]
+  args: ["-c", "sleep 3600"]
+volumeMounts:
+  - name: host
+  mountPath: /host
+volumes:
+  - name: host
+  hostPath:
+    path: /
+    typeL Directory
+nodeSelector:
+  kubernetes.io/hostname: ip-10-1-79-78.cryptocracy.org
+tolerations:
+  - operator: "Exists" # matches all keys, effects and values i.e tolerate everything
+  
+ 
+//Create the pod:
+
+kubectl apply -f analyse-worker-fs.yml
+
+//If the pod already exists, delete it and create a new one:
+
+kubectl delete pods kube-support --force --grace-period=0
+
+3) Launch an interactive shell
+
+kubectl exec -it kube-support sh
+
+//Now you are root with access to the complete worker root FS, mounted at /host
+/ # whoami
+root
+/ #df -h /host
+Filesystem        Size    Used    Available  Use%    Mounted on
+/dev/nvme0n1p2    500.0G  384.0G   116.0G     77%     /host
+
+4) Analyse the Worker host root filesystem
+//You can analyse the big things on host root FS
+//Some of the biggest opportunities for housekeeping might be found in /host/var/cache and 
+/host/var/crash
+
+//Permission denied? Need more capabilites?
+//Ex. Changing a host kernel parameter
+
+sysctl -w vm.swappiness=1
+
+//Ex. Access host devices
+
+fdisk -1 /host/dev/nvme0n1
+
+//Granting fine-grained kernel capabilities for your maintenance task:
+
+SecurityContext:
+  capabilities:
+    add: ["CHOWN"]
+    
+//Alternatively, use a privileged container:
+securityContext:
+  privilieged: true
