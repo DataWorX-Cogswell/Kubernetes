@@ -1,3 +1,5 @@
+https://itnext.io/mount-a-kubernetes-workers-root-filesystem-as-a-container-volume-for-fun-and-fortune-53ae492698db
+
 *Describes how to mount and analyse the root filesystem (/) of a chosen kube worker inside a pod
 container. This method shows an alternative way to get a shell on the worker host machine for analysis 
 and maintenance e.g. for freeing up disk space when kubelet is reporting DiskPressure.*
