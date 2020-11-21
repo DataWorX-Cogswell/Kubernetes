@@ -1,0 +1,7 @@
+This is the start of the of the Ginkgo testing framework examples. The first script is a simple calculator, created for testing purposes. It handles error values,
+so it should throw errors in the event of incorrect input values; of course, that's the purpose of testing.
+
+The testing script runs through simple cases, it should pass all the cases defined under "it" functions.
+
+To run the testing script, download adder.go and adder_suite_test.go in the same folder; run "Ginkgo" and the file should automatically run; if the terminal 
+can not find the ginkgo command, make sure the ginkgo file is in the environment path.
